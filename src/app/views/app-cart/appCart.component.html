@@ -1,0 +1,47 @@
+<div class="app-cart">
+	<div class="shift-button">
+		<div *ngIf="!isCartShowed" class="wrapp-arrow-button" (click)="onShift()">
+			<span class="material-icons">
+        arrow_back
+      </span>
+		</div>
+
+		<div *ngIf="isCartShowed" class="wrapp-arrow-button" (click)="onShift()">
+			<span class="material-icons">
+        arrow_forward
+      </span>
+		</div>
+	</div>
+	<div *ngIf="isCartShowed" class="cart-area" [style.height.px]="height">
+		<input type="text" class="search-field" placeholder="search" [(ngModel)]="search_word" (ngModelChange)="this.searchWordUpdate.next($event)" >
+		<div *ngIf="attendeeStep===0" class="items">
+			<div *ngFor="let item of searched_items" class="item">
+				<div class="item-image">
+					<img src={{item.url}} class={{item.id}} (click)="hostItem($event)" />
+        </div>
+					<div class="item-name">
+						{{item.name}}
+					</div>
+					<div class="item-price">
+						${{item.price}}
+					</div>
+				</div>
+			</div>
+			<div class="virtual-item-button" (click)="onClickAttendeeItem()">
+				<div *ngIf="attendeeStep===1" class="itemDetailShow">
+					<div class="item-detail-image" (click)="testFunc()">
+						<img class="item-detail-image-tag" src={{clickedItem.url}} width="300" height="300" />
+          </div>
+						<div class="item-detail item-detail-title">
+							<span>{{clickedItem.name}}</span>
+						</div>
+						<div class="item-detail item-detail-price">
+							<span>${{clickedItem.price}}</span>
+						</div>
+						<div class="item-detail item-detail-description">
+							<span>{{clickedItem.description}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
